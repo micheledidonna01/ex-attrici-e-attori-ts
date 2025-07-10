@@ -74,33 +74,48 @@ function isActress(result: unknown): result is Actress {
   return false;
 }
 
-getActress(1);
+
+// async function getAllActesses(): Promise< object[] | null>{
+//   try {
+//     const response = await fetch(`http://localhost:3333/actresses`);
+//     const result: unknown = await response.json();
+
+//     if (!response.ok) {
+//       throw new Error("Problemi con il server");
+//     }
+
+//     // if (!isActress(result)) {
+//     //   throw new Error("errore");
+//     // }
+//     console.log(result);
+//     return result
 
 
-async function getAllActesses(): Promise< object[] | null>{
-  try {
-    const response = await fetch(`http://localhost:3333/actresses`);
-    const result: unknown = await response.json();
+//   } catch (errore) {
+//     if (errore instanceof Error) {
+//       console.error(errore.message);
+//     } else {
+//       console.error('Erorre sconosciuto', errore);
+//     }
+//     return null;
+//   }
+// }
 
-    if (!response.ok) {
-      throw new Error("Problemi con il server");
-    }
-
-    // if (!isActress(result)) {
-    //   throw new Error("errore");
-    // }
-    console.log(result);
-    return result
+// getAllActesses();
 
 
-  } catch (errore) {
-    if (errore instanceof Error) {
-      console.error(errore.message);
-    } else {
-      console.error('Erorre sconosciuto', errore);
-    }
-    return null;
-  }
-}
 
-getAllActesses();
+(async () => {
+
+  const ids = [1,2,3,4,5];
+  const promises: Promise<Actress | null >[] = [];
+
+  ids.forEach((id) => {
+    const res:Promise<Actress | null> = getActress(id)
+    promises.push(res)
+  })
+
+  const allResult: unknown = await Promise.all(promises);
+  console.log("Risultati: ", allResult);
+
+})();
