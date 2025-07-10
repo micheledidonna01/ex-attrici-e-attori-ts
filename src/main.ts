@@ -10,3 +10,10 @@ type Persona = {
   biography: string,
   image: string
 }
+
+type Actress = Persona &
+{
+  most_famous_movies: [string, string, string],
+  awards: string,
+  nationality: "American" | "British"| "Australian"| "Israeli - American"| "South African" | "French" | "Indian" | "Israeli" | "Spanish" | "South Korean" | "Chinese"
+}
