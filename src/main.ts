@@ -35,7 +35,11 @@ async function getActress(id: number): Promise<Actress | null> {
 
 
   } catch (errore) {
-    console.error("errore con il server")
+    if (errore instanceof Error) {
+      console.error(errore.message);
+    } else {
+      console.error('Erorre sconosciuto', errore);
+    }
     return null;
   }
 }
@@ -72,3 +76,31 @@ function isActress(result: unknown): result is Actress {
 
 getActress(1);
 
+
+async function getAllActesses(): Promise< object[] | null>{
+  try {
+    const response = await fetch(`http://localhost:3333/actresses`);
+    const result: unknown = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Problemi con il server");
+    }
+
+    // if (!isActress(result)) {
+    //   throw new Error("errore");
+    // }
+    console.log(result);
+    return result
+
+
+  } catch (errore) {
+    if (errore instanceof Error) {
+      console.error(errore.message);
+    } else {
+      console.error('Erorre sconosciuto', errore);
+    }
+    return null;
+  }
+}
+
+getAllActesses();
