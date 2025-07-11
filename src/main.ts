@@ -345,3 +345,25 @@ function updateActor(actor: Actor, updates: Partial<Omit<Actor, "id" | "name">>)
 }
 
 
+async function createRumbleCouple() : Promise<[Actor, Actress] | null>{
+
+  const [actors, actresses] = await Promise.all([getActorAll(), getAllActresses()])
+
+  if(actors.length === 0 || actresses.length === 0){
+    return null
+  }
+
+  const randomActor = actors[Math.floor(Math.random() * actors.length)];
+
+  const randomActress = actresses[Math.floor(Math.random() * actresses.length)];
+
+  console.log("Actor & actress", [randomActor, randomActress]);
+  return [randomActor, randomActress]
+
+}
+
+createRumbleCouple()
+// Crea la funzione createRandomCouple che usa getAllActresses e getAllActors per restituire un’array che ha sempre due elementi: al primo posto una Actress casuale e al secondo posto un Actor casuale.
+
+
+
